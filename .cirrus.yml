@@ -1,5 +1,7 @@
 container:
   image: cirrusci/android-sdk:18
+  cpu: 8
+  memory: 20G
 
 test_task:
   emulator_script:

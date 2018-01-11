@@ -39,9 +39,9 @@ public final class UnbinderTest {
   }
 
   private void verifyHBound(H h) {
-    assertThat(h.button1).isNotNull();
-    assertThat(h.button2).isNotNull();
-    assertThat(h.button3).isNotNull();
+    assertThat(h.button1).isNull();
+    assertThat(h.button2).isNull();
+    assertThat(h.button3).isNull();
   }
 
   private void verifyHUnbound(H h) {

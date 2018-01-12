@@ -13,6 +13,8 @@ check_task:
     - $ANDROID_HOME/emulator/emulator -avd test -no-audio -no-window
   gradle_cache:
     folder: ~/.gradle/caches
+  copy_cache_script:
+    - cp -r ~/.gradle/caches ~/.gradle/caches-old
   wait_for_emulator_script:
     - adb wait-for-device
     - adb shell input keyevent 82
@@ -20,3 +22,4 @@ check_task:
   cleanup_before_cache_script:
     - rm -rf ~/.gradle/caches/4.4.1/
     - find ~/.gradle/caches/ -name "*.lock" -type f -delete
+    - diff -rq ~/.gradle/caches ~/.gradle/caches-old

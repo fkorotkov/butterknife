@@ -3,13 +3,21 @@ container:
   cpu: 4
   memory: 10G
 
-check_task:
-  printenv_script: printenv
-  create_device_script:
-    - echo no | avdmanager create avd --force -n test -k "system-images;android-18;default;armeabi-v7a"
-  start_emulator_background_script:
-    - $ANDROID_HOME/emulator/emulator -avd test -no-audio -no-window
+check_android_task:
+  create_device_script: >
+    echo no | avdmanager create avd --force \
+        -n test \
+        -k "system-images;android-18;default;armeabi-v7a"
+  start_emulator_background_script: >
+    $ANDROID_HOME/emulator/emulator \
+        -avd test \
+        -no-audio \
+        -no-window
   wait_for_emulator_script:
     - adb wait-for-device
     - adb shell input keyevent 82
-  check_script: ./gradlew clean assemble assembleAndroidTest check connectedCheck --stacktrace
+  check_script: >
+    ./gradlew clean \
+        assemble assembleAndroidTest \
+        check connectedCheck \
+        --stacktrace

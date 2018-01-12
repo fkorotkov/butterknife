@@ -1,25 +1,17 @@
 container:
-  image: cirrusci/android-sdk:tools
+  image: cirrusci/android-sdk:18
   cpu: 4
   memory: 10G
 
 check_task:
   printenv_script: printenv
-  install_script:
-    - sdkmanager "platforms;android-18" "build-tools;18.1.1" "system-images;android-18;default;armeabi-v7a"
   create_device_script:
     - echo no | avdmanager create avd --force -n test -k "system-images;android-18;default;armeabi-v7a"
   start_emulator_background_script:
     - $ANDROID_HOME/emulator/emulator -avd test -no-audio -no-window
-  gradle_cache:
-    folder: ~/.gradle/caches
   copy_cache_script:
     - cp -r ~/.gradle/caches ~/.gradle/caches-old
   wait_for_emulator_script:
     - adb wait-for-device
     - adb shell input keyevent 82
   check_script: ./gradlew clean assemble assembleAndroidTest check connectedCheck --stacktrace
-  cleanup_before_cache_script:
-    - rm -rf ~/.gradle/caches/4.4.1/
-    - find ~/.gradle/caches/ -name "*.lock" -type f -delete
-    - diff -rq ~/.gradle/caches ~/.gradle/caches-old

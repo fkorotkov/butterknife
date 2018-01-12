@@ -6,7 +6,7 @@ container:
 check_task:
   printenv_script: printenv
   install_script:
-    - sdkmanager "platforms;android-18" "build-tools;18.1.1" "system-images;android-18;default;armeabi-v7a"
+    - sudo sdkmanager "platforms;android-18" "build-tools;18.1.1" "system-images;android-18;default;armeabi-v7a"
   create_device_script:
     - echo no | avdmanager create avd --force -n test -k "system-images;android-18;default;armeabi-v7a"
   start_emulator_background_script:

@@ -19,4 +19,5 @@ test_task:
   wait_for_emulator_script:
     - adb wait-for-device
     - adb shell input keyevent 82
-  test_script: ./gradlew clean assemble assembleAndroidTest --stacktrace
+  assemble_script: ./gradlew clean assemble assembleAndroidTest --stacktrace
+  check_script: ./gradlew check connectedCheck --stacktrace
